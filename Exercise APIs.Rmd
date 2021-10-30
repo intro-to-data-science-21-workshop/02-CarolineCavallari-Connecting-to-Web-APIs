@@ -1,0 +1,91 @@
+---
+title: "Exercise - Doing your own API"
+author: "Caroline & Jose"
+date: "10/30/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, httr, lubridate, hrbrthemes, janitor, jsonlite, fredr, 
+               listviewer, usethis)
+
+
+library(tidyverse)
+library(httr)
+library(lubridate)
+library(janitor)
+library(jsonlite)
+library(hrbrthemes)
+library(fredr)
+library(listviewer)
+library(usethis)
+
+```
+
+
+
+
+```{r}
+women_agencies = 
+  fromJSON("https://data.cityofnewyork.us/resource/pqg4-dm6b.json") %>%
+  as_tibble()
+women_agencies
+```
+
+
+
+
+```{r}
+endpoint <- "https://cmsapi.pulselive.com/rugby/rankings/wru?language=en&client=pulse"
+women_rugby <- fromJSON(endpoint)
+str(women_rugby)
+listviewer::jsonedit(women_rugby, mode = "view")
+
+rankings =
+  bind_cols(
+    women_rugby$entries$team,
+    women_rugby$entries %>% select(matches:previousPos)
+    ) %>%
+  clean_names() %>%
+  select(-c(id, alt_id, annotations)) %>% ## These columns aren't adding much of interest
+  select(pos, pts, everything()) %>% ## Reorder remaining columns
+  as_tibble() ## "Enhanced" tidyverse version of a data frame
+rankings
+```
+
+
+
+
+```{r}
+https://api.fina.org/fina/countries
+
+endpoint <- "https://api.fina.org/fina/rankings/swimming?gender=M&distance=50&stroke=FREESTYLE&poolConfiguration=LCM&year=&startDate=&endDate=&timesMode=ALL_TIMES&regionId=&countryId=&pageSize=200"
+swimming_ranking <- fromJSON(endpoint)
+str(swimming_ranking)
+listviewer::jsonedit(swimming_ranking, mode = "view")
+```
+
+
+```{r}
+
+head(swimming_ranking$swimmingWorldRankings$fullName)
+
+
+rankings <-
+  bind_cols(swimming_ranking$swimmingWorldRankings$rank,
+            swimming_ranking$swimmingWorldRankings %>%
+              select(time:clubName)
+  clean_names(rankings)
+  as_tibble(rankings) 
+rankings
+
+
+```
+

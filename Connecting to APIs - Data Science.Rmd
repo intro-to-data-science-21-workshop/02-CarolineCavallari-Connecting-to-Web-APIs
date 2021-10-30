@@ -21,8 +21,8 @@ knitr::opts_chunk$set(echo = TRUE)
       
 # Defining APIs - What are they and why are they so cool?
 APIs are application programming interfaces that allowe programs to talk to each other based on a specific communication.
-APIs are organized as MAPs with different level of information, for example, 
-You need to know howto ask the questions in order to get the answers that you want!
+APIs are organized as MAPs with different level of information, for example, blablabla
+You need to know how to ask the questions in order to get the answers that you want!
 
 httr: for making requests
 jsonlite and xml2: they will help you parse the response
@@ -38,20 +38,6 @@ PATCH():
 PUT()
 DELETE()
 
-
-
-      
-      
-    
-    
-```{r setup, include=FALSE}
-
-
-
-
-
-```
-    
     
     
 Now that we know what an API is, we will install some packages that will help us to wok with them:
@@ -59,16 +45,14 @@ Now that we know what an API is, we will install some packages that will help us
 
 ## Load and install the packages that we'll be using today
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, httr, lubridate, hrbrthemes, janitor, jsonlite, fredr, 
-               listviewer, usethis)
+pacman::p_load(tidyverse, httr, lubridate, janitor, jsonlite, magrittr)
 #Now, we upload these packages:
 library(tidyverse)
 library(httr)
 library(lubridate)
-library(hrbrthemes)
 library(janitor)
 library(jsonlite)
-library(fredr)
+library(magrittr)
 
 ```
 
@@ -76,36 +60,13 @@ library(fredr)
 
 ```{r setup, include=FALSE}
 
-#Connecting to Spotify - 
 
-starwars = GET("https://swapi.dev/api/")
-my_starwars_result <- httr::GET("https://swapi.dev/api/people/")
-str(my_starwars_result)
-str(my_starwars_result$content)
-
-
-
-my_content <- httr::content(my_starwars_result, as='text')
-str(my_content)
-my_content_jason <- jsonlite::fromJSON(my_content)
-dplyr::glimpse(my_content_jason)
-starwars_df <- my_content_jason$people
-dplyr::glimpse(starwars_df)
-starwars_df
-view(starwars_df)
 ```
 
 
 
 ```{r setup, include=FALSE}
 
-fromJSON(rawToChar(starwars$content))
-
-starwars_people <- GET("https://swapi.dev/api/people/") 
-starwars_people <- fromJSON("https://swapi.dev/api/people/") %>%
-as_tibble()
-starwars_people
-view(starwars_people)
 
 ```
 
