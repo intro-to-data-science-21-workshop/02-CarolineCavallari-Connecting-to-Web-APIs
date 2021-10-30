@@ -1,0 +1,112 @@
+---
+title: "Connecting to API"
+author: "Caroline Cavallari & Jose de Los Heros"
+date: "10/30/2021"
+output: html_document
+output: ioslides_presentation
+keep_md: true 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+---
+
+## Our work for today:
+###- We will discuss the definition of APIs
+###- We will talk about how API workd and why are they important
+###- We will teach you how to do a cool API!
+-
+      
+      
+# Defining APIs - What are they and why are they so cool?
+APIs are application programming interfaces that allowe programs to talk to each other based on a specific communication.
+APIs are organized as MAPs with different level of information, for example, 
+You need to know howto ask the questions in order to get the answers that you want!
+
+httr: for making requests
+jsonlite and xml2: they will help you parse the response
+dplyr
+
+
+
+httr request functions are:
+HEAD(): getting the body  of the meta data without the data itself in order to understand the variablesyou are dealing with
+GET(): getting information from the web into your scripts
+POST(): write back to a data store of some kind
+PATCH(): 
+PUT()
+DELETE()
+
+
+
+      
+      
+    
+    
+```{r setup, include=FALSE}
+
+
+
+
+
+```
+    
+    
+    
+Now that we know what an API is, we will install some packages that will help us to wok with them:
+```{r setup, include=FALSE}
+
+## Load and install the packages that we'll be using today
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, httr, lubridate, hrbrthemes, janitor, jsonlite, fredr, 
+               listviewer, usethis)
+#Now, we upload these packages:
+library(tidyverse)
+library(httr)
+library(lubridate)
+library(hrbrthemes)
+library(janitor)
+library(jsonlite)
+library(fredr)
+
+```
+
+
+
+```{r setup, include=FALSE}
+
+#Connecting to Spotify - 
+
+starwars = GET("https://swapi.dev/api/")
+my_starwars_result <- httr::GET("https://swapi.dev/api/people/")
+str(my_starwars_result)
+str(my_starwars_result$content)
+
+
+
+my_content <- httr::content(my_starwars_result, as='text')
+str(my_content)
+my_content_jason <- jsonlite::fromJSON(my_content)
+dplyr::glimpse(my_content_jason)
+starwars_df <- my_content_jason$people
+dplyr::glimpse(starwars_df)
+starwars_df
+view(starwars_df)
+```
+
+
+
+```{r setup, include=FALSE}
+
+fromJSON(rawToChar(starwars$content))
+
+starwars_people <- GET("https://swapi.dev/api/people/") 
+starwars_people <- fromJSON("https://swapi.dev/api/people/") %>%
+as_tibble()
+starwars_people
+view(starwars_people)
+
+```
+
+
