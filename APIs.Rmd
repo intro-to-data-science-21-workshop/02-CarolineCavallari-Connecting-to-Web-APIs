@@ -1,0 +1,75 @@
+---
+title: "api"
+author: "Jose de los Heros"
+date: "10/30/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(httr)
+library(jsonlite)
+library(dplyr)
+```
+
+## Using APIs': An example with TV Maze  
+
+*   TV Maze is a repository of info on TV shows with an API
+*   The first thing we do is get link to API from website. 
+*   https://www.tvmaze.com/api
+*   From documentation, we get specific url to search for shows
+*   We search for shows containing the word 'girls'
+
+
+```{r }
+# url we got from documentation, we search for breaking bad
+url <- "https://api.tvmaze.com/search/shows?q=girls"
+
+# we retrieve information from this URL, using httr package
+retrieved_info <- httr::GET(url) #
+
+#we inspect the contents of what we retrieved
+retrieved_info
+
+```
+
+*   Knowing the status is important because R won't tell us if there are problems communicating with server
+*   The the stop_for_status function in R, from the HTTR package, can help us with that
+
+
+
+```{r, echo=FALSE}
+
+bad_url <- "https://api.tvmaze.com/search/shows?asdfadsfad"
+
+# R won't give us an error message
+bad_retrieved_info <- httr::GET(bad_url)
+
+
+bad_retrieved_info %>% stop_for_status()
+
+
+```
+*   In order to make the content readable we have to translate the information into a readable format
+
+```{r, echo=FALSE}
+
+retrieved_info$content
+
+retrieved_info$headers$`content-type` # accesses the header to determine what 
+                                      # language (JSON, XML) the info is in
+
+```
+
+*   The JSON package helps us getting the content in readable, list format 
+*   We can then access a table with search results in this list
+
+```{r, echo=FALSE}
+parsed_content <- retrieved_info %>%  
+  stop_for_status %>% # we always check for errors 
+  httr::content("text", encoding="UTF-8") %>% 
+  jsonlite::fromJSON()  # uses JSON package to translate from JSON
+
+parsed_content$show %>% dplyr::select(name,status)
+
+```
