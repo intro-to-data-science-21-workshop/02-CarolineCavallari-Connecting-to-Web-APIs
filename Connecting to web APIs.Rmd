@@ -19,17 +19,47 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+# figures formatting setup
+options(htmltools.dir.version = FALSE)
+library(knitr)
+opts_chunk$set(
+  comment = "  ",
+  prompt = T,
+  fig.align="center", #fig.width=6, fig.height=4.5, 
+  # out.width="748px", #out.length="520.75px",
+  dpi=300, #fig.path='Figs/',
+  cache=F, #echo=F, warning=F, message=F
+  engine.opts = list(bash = "-l")
+  )
+## Next hook based on this SO answer: https://stackoverflow.com/a/39025054
+knit_hooks$set(
+  prompt = function(before, options, envir) {
+    options(
+      prompt = if (options$engine %in% c('sh','bash')) '$ ' else 'R> ',
+      continue = if (options$engine %in% c('sh','bash')) '$ ' else '+ '
+      )
+})
 
 ```
 
 
 # Our agenda for today:
 
+<br>
+
 1. Definition of web APIs
+
 2. How web APIs work and why are they important
+
 4. Introduction to HTTR package
+
 5. Introduction to jsonlite package
+
 6. More resources
+
 7. Do it yourself time!
 
 ---
@@ -40,11 +70,23 @@ name: intro
 
 ##What are APIs?
 
-API stands for 'Application Programming Interface’. It is a place where computers talk to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. Web APIs often are organized hierarchically, with different levels of information that can be accessed. s
+API stands for 'Application Programming Interface’. 
 
-**What do they do?**
-- Makes it easier for a computer to interact with data on server
+It is a contract on how computers can communicate to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. 
+
+- Server: it is like a big computer, capable of doing different things such as: storing data or performing different tasks
+- Client: companies or you, data analysts `r emo::ji("coder")` 
+
+One important thing to know is that Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. Therefore, you have to understand theinformation that you need, in order to understand the level that it is in.     
+
+---
+
+name: intro
+
+**What APIs do?**
+- Make it easier for a computer to interact with data on server
 - Allows access to ‘hidden’ part of website
+
 
 ![ ](./Images/Image_1.jpeg)
 
@@ -66,6 +108,34 @@ Data is obtained in a standardized format.
 **What are their disadvantages?**
 You need to know how to ask the right questions in order to get the answers that you want. To do that, you need to know the API very well, and that might be a challenge!
 There are multiple system and different ways to do it, depending on how the API was designed
+
+---
+
+name: But, why do companies have APIs?
+
+# But, why do companies have APIs?
+
+With so much discussion about data protection it is normal to ask ourselves why would a company allow people to have access to so much of their data?
+
+But, imagine if everyone decided to retrieve data from a server in an unstructured way. The amount of energy that this would consume would be very high. Now, the company can provide an organized way for clients to retrieve a large amount of data, withoutoverwhelming or crashing their server. Hence, many companies develop APIs and their respective dicitionaries, to make this process faster and simpler.
+
+Also, APIs allow for more:
+
+- Innovation: clients have access to data, can developtheir own products and solutions
+- APIs can help companies move to different markets or even partner with other companies
+- For people: APIs are very important for research, people can find solutions to many different problems just by having accessto structured data
+
+
+---
+
+name: Still confused on what are APIs?
+
+#Still confused on what are APIs?
+
+**Let me give you an example**
+Did you know that Spotify has a huge API? But again, what can you do with it?
+
+
 
 ---
 
@@ -99,15 +169,15 @@ name: The HTTR Package
 
 -**HEAD():** it returns the headers of your metadata but without the data itself, allowing you to understand your variables without moving everything to your R.
 
--**GET():** tells the server to get the information from the url into your scripts.
+- **GET():** tells the server to get the information from the url into your scripts.
 
--**POST():** tells the server to create a new resource. 
+- **POST():** tells the server to create a new resource. 
 
--**PUT():** tell the server to update a source
+- **PUT():** tell the server to update a source
 
--**PATCH():** tells the server to modify a resource.
+- **PATCH():** tells the server to modify a resource.
 
--**DELETE():** tells the server to delete a resource.
+- **DELETE():** tells the server to delete a resource.
 
 
 ---
@@ -154,5 +224,24 @@ name: But now the real jsonlite package
 The `jsonlite` package is a parser, that will tell your API how to read the data being retrieved in the JSON (JavaScript Object Notation) format. `JSON()` converts R objects to JSON language and vice-versa. 
 
 
+---
+
+name: Overall design
+
+#Overall design
 
 
+The key features of any API are the structure of the requests and the structure of the responses. An HTTP request consists of the following parts:
+
+HTTP verb (GET, POST, DELETE, etc.)
+The base URL for the API
+The URL path or endpoint
+URL query arguments (e.g., ?foo=bar)
+Optional headers
+An optional request body
+
+example:
+- url <- "https://api.tvmaze.com/search/shows?q=girls"
+- httr::GET(url)
+- Query arguments: APIs are structured in a way for you to specify information that you are looking for. In the above example, we specified q=girls -> query=girls. We want to retrieve data from all tv programs that have "girls" on their name.
+- 

@@ -26,13 +26,22 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
 # Our agenda for today:
 
+&lt;br&gt;
+
 1. Definition of web APIs
+
 2. How web APIs work and why are they important
+
 4. Introduction to HTTR package
+
 5. Introduction to jsonlite package
+
 6. More resources
+
 7. Do it yourself time!
 
 ---
@@ -43,11 +52,19 @@ name: intro
 
 ##What are APIs?
 
-API stands for 'Application Programming Interface’. It is a place where computers talk to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. Web APIs often are organized hierarchically, with different levels of information that can be accessed. s
+API stands for 'Application Programming Interface’. 
 
-**What do they do?**
-- Makes it easier for a computer to interact with data on server
+It is a contract on how computers can communicate to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. 
+
+- Server: it is like a big computer, capable of doing different things such as: storing data, performing tasks
+- Client: companies or you, data analysts 👨‍💻 
+
+One important thing to know is that Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client.     
+
+**What APIs do?**
+- Make it easier for a computer to interact with data on server
 - Allows access to ‘hidden’ part of website
+- 
 
 ![ ](./Images/Image_1.jpeg)
 
@@ -102,15 +119,15 @@ name: The HTTR Package
 
 -**HEAD():** it returns the headers of your metadata but without the data itself, allowing you to understand your variables without moving everything to your R.
 
--**GET():** tells the server to get the information from the url into your scripts.
+- **GET():** tells the server to get the information from the url into your scripts.
 
--**POST():** tells the server to create a new resource. 
+- **POST():** tells the server to create a new resource. 
 
--**PUT():** tell the server to update a source
+- **PUT():** tell the server to update a source
 
--**PATCH():** tells the server to modify a resource.
+- **PATCH():** tells the server to modify a resource.
 
--**DELETE():** tells the server to delete a resource.
+- **DELETE():** tells the server to delete a resource.
 
 
 ---
@@ -142,7 +159,7 @@ name:The jsonlite package
 
 #The jsonlite package
 
-![](./Images/gif_jason.gif)&lt;!-- --&gt;
+&lt;img src="./Images/gif_jason.gif" style="display: block; margin: auto;" /&gt;
 
 ---
 
