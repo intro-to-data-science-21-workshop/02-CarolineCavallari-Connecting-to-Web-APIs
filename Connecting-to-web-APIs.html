@@ -56,15 +56,19 @@ API stands for 'Application Programming Interface’.
 
 It is a contract on how computers can communicate to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. 
 
-- Server: it is like a big computer, capable of doing different things such as: storing data, performing tasks
-- Client: companies or you, data analysts 👨‍💻 
+- Server: it is like a big computer, capable of doing different things such as: storing data or performing different tasks
+- Client: companies or you, data analysts 👩‍💻 
 
-One important thing to know is that Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client.     
+One important thing to know is that Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. Therefore, you have to understand theinformation that you need, in order to understand the level that it is in.     
+
+---
+
+name: what APIs do?
 
 **What APIs do?**
 - Make it easier for a computer to interact with data on server
 - Allows access to ‘hidden’ part of website
-- 
+
 
 ![ ](./Images/Image_1.jpeg)
 
@@ -76,48 +80,104 @@ name: What are APIs good for?
 When you need data from website in a programmatic manner:
 
 - A lot of data
-
 - Data gets updated constantly (weather, price of gold) 
 
 **What are their strengths?**
-Unlike in webscraping, there is a structured way to access data in APIs. 
-Data is obtained in a standardized format.
+- Unlike in webscraping, there is a structured way to access data in APIs. 
+- Data is obtained in a standardized format.
 
 **What are their disadvantages?**
-You need to know how to ask the right questions in order to get the answers that you want. To do that, you need to know the API very well, and that might be a challenge!
-There are multiple system and different ways to do it, depending on how the API was designed
+- You need to know how to ask the right questions in order to get the answers that you want. To do that, you need to know the API very well, and that might be a challenge!
+- There are multiple system and different ways to do it, depending on how the API was designed.
 
+---
+
+name: But, why do companies have APIs?
+
+#But, why do companies have APIs?
+
+Imagine if everyone decided to retrieve data from a server in an unstructured way. The amount of energy that this would consume would be very high. Now, the company can provide an organized way for clients to retrieve a large amount of data, without overwhelming or crashing their server.
+
+Moreover, APIs allows for more:
+
+- Innovation: clients have access to data, can develop their own products and solutions
+- Expansion: APIs can help companies move to different markets or even partner with other companies
+- Variety: Allows for a large amount of content to be provided in  the internet
+- For people: APIs are very important for research, people can find solutions to many different problems just by having access to structured dataframes. 
+
+
+---
+
+name: Still confused on what are APIs?
+
+#Still confused on what are APIs?
+
+.pull-left[
+**Let me give you an example:** Many companies use APIs today to allow for their clients to retrieve data and create their own apps, softwares and solutions. 
+
+&lt;br&gt; 
+
+**Exammples:**
+&lt;br&gt; 
+&lt;img style="padding-right: 40px" src="Images/Image_3.jpeg" height=80&gt;
+&lt;img src="Images/Image_4.png" height=80&gt;
+&lt;img src="Images/Image_5.png"height=80&gt;
+&lt;img src="Images/Image_6.png"height=80&gt;
+&lt;img src="Images/Image_8.png"height=80&gt;
+&lt;/div&gt;
+
+]
+
+.pull-right[
+**Spotify**: remember when Spotify asks to connect to your friends in Facebook? What is happening there is an API, a website (spotify) is pulling data from the other (Facebook).
+
+&lt;br&gt; 
+
+&lt;img style="padding-right: 100px" img src="Images/Image_9.png"height=200&gt;
+&lt;/div&gt;
+
+]
 ---
 
 name: What is  the logic of APIs?
 
+.pull-left[
 #What is  the logic of APIs?
 In order for APIs to be done, computers need a protocol. 
-*But what does that mean?*\
+*But what does that mean?*
 
 It means that a set of rules define how a computer reads a message.  This set of rules is the internet's protocol, also known as HTTP.  
 
 This is also known as a Request-Response Cycle: We can ask the server to do something, and the server will tell us if it can be done or not (Cooksey, 2014) 
 
+
+&lt;img style="padding-right: 100px" img src="Images/Image_10.png"height=200&gt;
+&lt;/div&gt;
+
+]
+
+
+.pull-right[
 ## Making Valid Requests
 Also, according to Cooksey (2014), to make a valid request, the client needs to include four things:
 
-- URL (Uniform Resource Locator) 
+- **URL (Uniform Resource Locator)**: is a text "address" that specifies where a resource (webpage, video) is located on the internet
 
-- Method 
+- **Method**: the verbs used to talk with the server (ex: `GET()`, `DELETE()`,`POST()`)
 
-- List of Headers 
+- **List of Headers**: will describe the body included in our request
 
-- Body
+- **Body**: this is the the data itself, the content we are interested in retrieving
+]
 
 ---
 
 name: The HTTR Package
 
 #The HTTR Package
-`httr` connects your data to a server and organizes it according to your setups. This means that HTTPR helps you to **make a request** to a server. The most frequently used functions in this package are:
+`httr` connects your data to a server and organizes it according to your setups. This means that HTTR helps you to **make a request** to a server. The most frequently used functions in this package are:
 
--**HEAD():** it returns the headers of your metadata but without the data itself, allowing you to understand your variables without moving everything to your R.
+- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R.
 
 - **GET():** tells the server to get the information from the url into your scripts.
 
@@ -130,10 +190,24 @@ name: The HTTR Package
 - **DELETE():** tells the server to delete a resource.
 
 
+
 ---
+
+name: The tructure of a HTTTP
+
+#The Structure of a HTTP
+
+
+&lt;img style="padding-right: 100px" img src="Images/Image_11.png"height=400&gt;
+&lt;/div&gt;
+
+
+---
+
 
 name: Checking for Errors
 
+.pull-left[
 #Checking for Errors
 
 *How do we check for errors before we continue?*
@@ -141,16 +215,19 @@ name: Checking for Errors
 When we are building APIs and retrieving the url, it's important to check whether our url is valid and whether it is working before we start retrieving data.
 
 In order to check our url we can run **http_status()**: which will tell us the status of our code and whether our operation was successful or not.
+]
 
----
-
-name: Most Common Errors
-
+.pull-right[
 #Most Common Errors
 
 Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
 
 ![ ](./Images/Image_2.jpeg)
+
+- 200	OK: The request was sucessful. The client can read the result of the request 
+- 400: The request could not be understood by the server due to malformed syntax. 
+- 
+
 
 
 ---
@@ -172,8 +249,27 @@ name: But now the real jsonlite package
 The `jsonlite` package is a parser, that will tell your API how to read the data being retrieved in the JSON (JavaScript Object Notation) format. `JSON()` converts R objects to JSON language and vice-versa. 
 
 
+---
+
+name: Overall design
+
+#Overall design
 
 
+The key features of any API are the structure of the requests and the structure of the responses. An HTTP request consists of the following parts:
+
+HTTP verb (GET, POST, DELETE, etc.)
+The base URL for the API
+The URL path or endpoint
+URL query arguments (e.g., ?foo=bar)
+Optional headers
+An optional request body
+
+example:
+- url &lt;- "https://api.tvmaze.com/search/shows?q=girls"
+- httr::GET(url)
+- Query arguments: APIs are structured in a way for you to specify information that you are looking for. In the above example, we specified q=girls -&gt; query=girls. We want to retrieve data from all tv programs that have "girls" on their name.
+- 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
