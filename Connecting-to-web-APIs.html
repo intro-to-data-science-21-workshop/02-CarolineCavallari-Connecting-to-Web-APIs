@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Connecting to APIs in the Web</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Caroline Cavallari &amp; Jose de Los Heros" />
+    <meta name="date" content="2021-04-11" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Connecting to APIs in the Web
+### Caroline Cavallari &amp; Jose de Los Heros
+### Hertie School
+### 04/11/21
+
+---
+
+
+
+
+
+
+# Our agenda for today:
+
+1. Definition of web APIs
+2. How web APIs work and why are they important
+4. Introduction to HTTR package
+5. Introduction to jsonlite package
+6. More resources
+7. Do it yourself time!
+
+---
+
+name: intro
+
+#Introduction to web APIs
+
+##What are APIs?
+
+API stands for 'Application Programming Interface’. It is a place where computers talk to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. Web APIs often are organized hierarchically, with different levels of information that can be accessed. s
+
+**What do they do?**
+- Makes it easier for a computer to interact with data on server
+- Allows access to ‘hidden’ part of website
+
+![ ](./Images/Image_1.jpeg)
+
+---
+name: What are APIs good for?
+
+#What are APIs good for?
+
+When you need data from website in a programmatic manner:
+
+- A lot of data
+
+- Data gets updated constantly (weather, price of gold) 
+
+**What are their strengths?**
+Unlike in webscraping, there is a structured way to access data in APIs. 
+Data is obtained in a standardized format.
+
+**What are their disadvantages?**
+You need to know how to ask the right questions in order to get the answers that you want. To do that, you need to know the API very well, and that might be a challenge!
+There are multiple system and different ways to do it, depending on how the API was designed
+
+---
+
+name: What is  the logic of APIs?
+
+#What is  the logic of APIs?
+In order for APIs to be done, computers need a protocol. 
+*But what does that mean?*\
+
+It means that a set of rules define how a computer reads a message.  This set of rules is the internet's protocol, also known as HTTP.  
+
+This is also known as a Request-Response Cycle: We can ask the server to do something, and the server will tell us if it can be done or not (Cooksey, 2014) 
+
+## Making Valid Requests
+Also, according to Cooksey (2014), to make a valid request, the client needs to include four things:
+
+- URL (Uniform Resource Locator) 
+
+- Method 
+
+- List of Headers 
+
+- Body
+
+---
+
+name: The HTTR Package
+
+#The HTTR Package
+`httr` connects your data to a server and organizes it according to your setups. This means that HTTPR helps you to **make a request** to a server. The most frequently used functions in this package are:
+
+-**HEAD():** it returns the headers of your metadata but without the data itself, allowing you to understand your variables without moving everything to your R.
+
+-**GET():** tells the server to get the information from the url into your scripts.
+
+-**POST():** tells the server to create a new resource. 
+
+-**PUT():** tell the server to update a source
+
+-**PATCH():** tells the server to modify a resource.
+
+-**DELETE():** tells the server to delete a resource.
+
+
+---
+
+name: Checking for Errors
+
+#Checking for Errors
+
+*How do we check for errors before we continue?*
+
+When we are building APIs and retrieving the url, it's important to check whether our url is valid and whether it is working before we start retrieving data.
+
+In order to check our url we can run **http_status()**: which will tell us the status of our code and whether our operation was successful or not.
+
+---
+
+name: Most Common Errors
+
+#Most Common Errors
+
+Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
+
+![ ](./Images/Image_2.jpeg)
+
+
+---
+
+name:The jsonlite package
+
+#The jsonlite package
+
+![](./Images/gif_jason.gif)&lt;!-- --&gt;
+
+---
+
+name: But now the real jsonlite package
+
+#But now the real jsonlite package
+
+*What does this package do?*
+
+The `jsonlite` package is a parser, that will tell your API how to read the data being retrieved in the JSON (JavaScript Object Notation) format. `JSON()` converts R objects to JSON language and vice-versa. 
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"hash": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
