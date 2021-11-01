@@ -1,75 +1,330 @@
 ---
-title: "api"
-author: "Jose de los Heros"
+title: "Using APIs': A Tutorial with TV Maze  "
+author: "Caroline and Jose "
 date: "10/30/2021"
-output: html_document
+output:
+   html_document:
+    toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: journal
+    toc_depth: 3
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(httr)
-library(jsonlite)
-library(dplyr)
+# Custom function to install needed packages, if they're not
+# already installed on your machine
+check.packages <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg))
+    install.packages(new.pkg, dependencies = TRUE,
+                     repos = "https://cran.rstudio.com")
+  sapply(pkg, require, character.only = TRUE)
+}
+
+check.packages(c("dplyr", "rmarkdown", "emo", "httr", "jsonlite"))
 ```
 
-## Using APIs': An example with TV Maze  
+## Welcome
 
-*   TV Maze is a repository of info on TV shows with an API
-*   The first thing we do is get link to API from website. 
-*   https://www.tvmaze.com/api
-*   From documentation, we get specific url to search for shows
-*   We search for shows containing the word 'girls'
+Welcome to our API tutorial. In this brief session you'll learn how to:
 
+  *   **Connect** to an API
+  *   **Search** for data using an API
+  *   Get data **programmatically** through an API
+  
+---
+
+
+## Getting Started 
+
+Today, we'll use **TV Maze's API**
+
+**TV Maze** is an online database of TV shows. It's IMDB's less famous cousin `r emo::ji("sad")`
+
+To our benefit, this API is free and doesn't require authorization. 
+
+```{r fig.align="center", echo=F}
+knitr::include_graphics("https://static.tvmaze.com/images/api/tvm_api.png")
+```
+
+For today's session, we will need the following packages 
+
+```{r warning=FALSE, message=FALSE}
+
+library(httr) # to make requests 
+library(jsonlite) # to read content 
+library(dplyr) # to wrangle data 
+
+```
+
+---
+
+## Learning to query `r emo::ji("magnifying")`
+
+To use an API, we have to learn how to **structure** our requests
+
+In practice, this means finding out what **extension** to add to the API's **base URL** 
+
+
+$$Request = Base URL + Extension$$
+
+You can often find this information in the **documentation** 
+
+Visit TV Maze's documentation to learn how to ask for data https://www.tvmaze.com/api 
+
+---
+
+#### **<span style="color:#4B0082;">Did you find anything helpful?</span>**
+
+
+From the **TV Maze documentation**, we learn that: 
+
+*   If we want to search for a **show**, we would add <span style="color:#0000FF;">/search/show?q=:query?</span>
+
+*   If we want to search for a **person**, we would add <span style="color:#0000FF;">/search/person?q=:query</span>
+
+*   We can also get schedules, info about shows, episodes, and so on. 
+
+#### Lets try it ourselves. Search for shows containing the word **law**
+
+We assemble our URL following the documentation's guidelines: 
+
+*   **Base URL** <span style="color:#0000FF;">https://api.tvmaze.com</span> + **extension** <span style="color:#0000FF;">/search/shows?q=law </span>
+
+*   https://api.tvmaze.com/search/shows?q=law
+    
+Before diving into R, however, take a look at the URL in your browser 
+
+**<span style="color:#4B0082;">Not that helpful, right?</span>**
+
+R can help us read these results in familiar data formats we can then manipulate 
+
+---
+
+## Getting Data `r emo::ji("computer")`
+
+To get data from the API, we have to make a **request**. To do this, we use `httr::GET()` 
+
+#### Let's inspect the object we get. 
 
 ```{r }
-# url we got from documentation, we search for breaking bad
-url <- "https://api.tvmaze.com/search/shows?q=girls"
+# url we got from documentation, we search for 'law'
+url <- "https://api.tvmaze.com/search/shows?q=law"
 
 # we retrieve information from this URL, using httr package
-retrieved_info <- httr::GET(url) #
+retrieved_data <- httr::GET(url) #
 
 #we inspect the contents of what we retrieved
-retrieved_info
+retrieved_data
 
 ```
 
-*   Knowing the status is important because R won't tell us if there are problems communicating with server
-*   The the stop_for_status function in R, from the HTTR package, can help us with that
+We get a **list** object, a quick view provides important information. Relevant to us are:
+
+  *   The **status** '200' tells us the request was successful 
+  
+  *   The **content-type** tells us the data is encoded using JSON. 
+  
+Both are important pieces of information we will use later on. 
+
+---
+
+## Status `r emo::ji("check")`
+
+Checking the **status** is important because R will not give you an error if the request was not successful 
+
+To get an **error message** use `httr::stop_for_status()`  
+
+#### Try writing a nonsensical URL 
 
 
-
-```{r, echo=FALSE}
+```{r}
 
 bad_url <- "https://api.tvmaze.com/search/shows?asdfadsfad"
 
 # R won't give us an error message
-bad_retrieved_info <- httr::GET(bad_url)
+bad_retrieved_data <- httr::GET(bad_url)
 
 
-bad_retrieved_info %>% stop_for_status()
+#bad_retrieved_data %>% stop_for_status() # unless we deliberately ask for it 
 
 
 ```
-*   In order to make the content readable we have to translate the information into a readable format
 
-```{r, echo=FALSE}
+---
 
-retrieved_info$content
+## Reading the data `r emo::ji("book")`
 
-retrieved_info$headers$`content-type` # accesses the header to determine what 
-                                      # language (JSON, XML) the info is in
+Let's leave the status aside for a moment, and turn back to the data.
+
+#### Lets see what our **content** looks like. 
+
+
+```{r}
+
+head(retrieved_data$content)
 
 ```
 
-*   The JSON package helps us getting the content in readable, list format 
-*   We can then access a table with search results in this list
+This is just a bunch of numbers, hardly useful. 
 
-```{r, echo=FALSE}
-parsed_content <- retrieved_info %>%  
-  stop_for_status %>% # we always check for errors 
-  httr::content("text", encoding="UTF-8") %>% 
+To put the data in a format we can work with, we use `jsonlite::fromJSON()` 
+
+We turn to this package because the content is in **JSON** format. But it could have also been encoded in **XML**. In that case, we would have used an XML parser, like the **XML** package. This depends on the API you use. 
+
+Before we can use `jsonlite::fromJSON()`, we turn the content from our retrieved data into text, using `httr::content()`  
+
+#### Let's inspect the data again. 
+
+```{r}
+parsed_content <- retrieved_data %>%  
+  stop_for_status %>% # we check for errors in thr request
+  httr::content("text", encoding="UTF-8") %>%  # turns data into text
   jsonlite::fromJSON()  # uses JSON package to translate from JSON
 
-parsed_content$show %>% dplyr::select(name,status)
+str(parsed_content, max=1)#inspects elements of list
 
 ```
+
+This is a **slight improvement** (kind of ?), but we're still not where we want to be. 
+
+We get an unwieldy object: a data frame with nested data frames inside it.
+
+---
+
+## Wrangling `r emo::ji("muscle")`
+
+Although APIs provide data in a structured format, we might have to do further cleaning ourselves. This will require exploring the data frame. 
+
+This is *normal*. Every API will return the data structured in a different way. Working with APIs means learning the particulars of every API you use. 
+
+Below is an example of how we could wrangle the data to get a more useful data frame, but this depends on what data we want. 
+
+
+```{r}
+
+parsed_content$show %>% dplyr::select(name,status) %>% head()
+
+```
+
+---
+
+## Requesting data in a programmatic manner `r emo::ji("nerd")`
+
+In the real world, we might be interested in getting more data than a single search query can yield. 
+
+#### **<span style="color:#4B0082;"> What would we do in that case ?</span>**
+
+From the documentation, we learn that we can search for an **index of all shows** with the following extension:
+
+*   <span style="color:#0000FF;">/shows?page=:num</span>
+  
+#### **<span style="color:#4B0082;"> Stop for a second. Can you think of a way to use this extension ?</span>**
+
+One option is to run a **for loop**
+
+Below is an example of a for loop that collects data from the **first five pages of results**. 
+
+The code works in the following steps steps.
+
+  1.    We get results from the first page, **page 0**,  and create a data frame. We will add rows to this data frame in the for loop.
+  2.    We create a **vector** with the number of pages of results we want
+  3.    In the **for loop**, we iterate over the page number. We modify the URL each time by adding an extension with the **current page number**.
+  4.    Each time the loop runs, we get a new table of results for the current page number, and **bind** it to the data frame we had already created
+  5.    Usually APIs will have you register and will keep track of your activity in this way. Since this is not the case, we'll also introduce ourselves. **Don't forget your manners, young lady!**  
+
+
+```{r}
+
+url <- "https://api.tvmaze.com/shows?page=0" # page 0
+results <- GET(url) %>%  # request data
+  httr::content("text", encoding="UTF-8") %>% # turn data into text
+  jsonlite::fromJSON() %>% # create data frame
+  dplyr::as_tibble() %>%  # turn into data frame
+  dplyr::select(name, runtime) # selects the columns we want
+
+
+pages <- c(1:4) # we specify the number of pages of results we want
+
+for (i in length(pages)) { # we iterate as many times as there pages
+    url <- paste0("https://api.tvmaze.com/shows?page=",pages[i]) # page n
+    more_results <- GET(url, 
+                        httr::add_headers(From = "jose.heros5@gmail.com", # very polite
+    `UserAgent` = R.Version()$version.string)) %>% 
+      content("text", encoding="UTF-8") %>% 
+      jsonlite::fromJSON() %>%  # create a new df
+      dplyr::as_tibble() %>%  
+      dplyr::select(name, runtime) 
+    results <- rbind(results, more_results) # bind new df to existing one
+    Sys.sleep(runif(1, 1, 2)) # always polite 
+    }
+results %>% dplyr::sample_n(5)
+```
+
+
+---
+
+## What if we want data on **ALL** the shows? `r emo::ji("money_mouth_face")`
+
+#### **<span style="color:#4B0082;">Can you think of a way to do this ?</span>**
+
+*One* option is to run a **while loop** 
+
+*   Since we don't know how many page numbers of shows there are, we have to get R to tell us when we've reached the end. 
+
+*   This is where knowing the **status** of a **request** comes in handy. 
+
+*   We can **iterate** until we get to a page number that doesn't exist. In other words, until we make a **failed** request. 
+
+*   Below is an example of a while loop that does this. **It runs so long as the request status is successful.** 
+
+*   Try this at your leisure. We don't want to crash TV Maze's server right now! 
+
+
+```{r}
+url <- "https://api.tvmaze.com/shows?page=0"
+results <- httr::GET(url) %>%  # request data
+httr::content("text", encoding="UTF-8") %>% # turn data into text
+jsonlite::fromJSON() %>% # create data frame
+dplyr::as_tibble() %>%  # turn into data frame
+dplyr::select(name, runtime)
+
+page_number <- 1
+
+#while(tv_url$status==200) {
+    #url <- paste0("https://api.tvmaze.com/shows?page=", page_number)
+  # more_results <- GET(url) %>% 
+      #content("text", encoding="UTF-8") %>% 
+      #jsonlite::fromJSON() %>%  # create a new df
+      #dplyr::as_tibble() %>%  
+      #dplyr::select(name, runtime) 
+    #results <- rbind(results, more_results)
+    #page_number <- page_number + 1 # every time it runs, the loop increases the page count
+  #Sys.sleep(runif(1, 1, 2)) # out of politeness 
+  #} 
+```
+
+
+---
+
+## Wrap Up
+
+Every API is different. You will have to learn how to interact with each one. 
+
+Getting data might require that you think creatively about how to use the API. In other words, the data YOU want might not be served on a platter. 
+
+You can find thousands of APIs at https://www.programmableweb.com and here https://github.com/public-apis/public-apis 
+
+Thank you for hanging in there! 
+
+---
+
+We are indebted to Amanda Gadrow's Tutorial on APIs. 
+
+https://www.rstudio.com/resources/webinars/the-basics-and-some-of-the-pitfalls-of-calling-web-apis-from-within-r/
+
+We are also indebted to Tom Arend, Lisa Oswald, Sebastian Ramirez Ruiz and Simon Munzert, whose lab sessions helped us format this tutorial in R Markdown. The function to check for installed packages is taken verbatim from the first lab of the Causal Inference course. 
