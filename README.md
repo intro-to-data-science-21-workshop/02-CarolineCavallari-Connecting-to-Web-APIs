@@ -22,16 +22,12 @@ The goals of this session are to (1) to explain whar are web APIs and what can t
 ## Further resources
 
 - [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
-<br>
 
 - [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
-<br>
 
 - [ProgrammableWeb: the Largest API Directory on the web](https://www.programmableweb.com/apis/directory)
 
-
 - [Github List of Free APIs by Github](https://github.com/public-apis/public-apis)
-<br>
 
 - [Hands on intro to APIs in R by Leo Glowacki](https://www.youtube.com/watch?v=kZU240u9H3E&t=2248s&ab_channel=BigData%26AnalyticsAssociation)
 
