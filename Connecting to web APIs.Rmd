@@ -74,10 +74,10 @@ name: intro
 
 API stands for 'Application Programming Interface’. 
 
-It is a contract on how computers can communicate to each other and between: a client, your R script and a server, which hosts a website. 
+It is a contract on how computers can communicate with each other and between: a client, your R script and a server, which hosts a website. 
 
 - Server: it is like a big computer, capable of storing data or performing different tasks
-- Client: companies or you, data analysts `r emo::ji("coder")` 
+- Client: companies or you, data analysts `r emo::ji("coder")` #from what I understand the term client usually refers to software, like a browser or R studio (when it makes requests to a server)# 
 
 **Important**: Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. You have to understand the information that you need in order to know the level that it is in.     
 
@@ -96,7 +96,7 @@ It is a contract on how computers can communicate to each other and between: a c
 name: What APIs do?
 
 .pull-left[
-**What APIs do?**
+**What do APIs do?**
 - Make it easier for a computer to interact with data on server
 - Allows access to ‘hidden’ part of website
 - They organize data and codes in a way so developers don't have to start everything from scratch
@@ -115,7 +115,7 @@ An easier way to explain what an API is, is to think about a restaurant.
 When you are a client, you go to a restaurant and you have many options of food in the menu (let's say that is the API documentation).
 <br>
 
-The client orders the food according to the waiter, and the **waiter** sends this request to the **kitchen (the server)**, who will interpret the request and produce it. 
+The client orders the food from the waiter, and the **waiter** sends this request to the **kitchen (the server)**, who will interpret the request and produce it. 
 <br>
 
 The waiter acts like an API sending the request and bringing back de results - hopefully good food!
@@ -235,7 +235,7 @@ name: The HTTR Package
 #The HTTR Package
 `httr` connects your data to a server and organizes it according to your setups. This means that HTTR helps you to **make a request** to a server. The most frequently used functions in this package are:
 
-- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R.
+- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R. #perhaps more than your variables the structure of the data?#
 
 - **GET():** tells the server to get the information from the url into your scripts.
 
@@ -251,7 +251,7 @@ name: The HTTR Package
 
 ---
 
-name: The tructure of a HTTTP
+name: The structure of a HTTTP
 
 #The Structure of a HTTP
 
@@ -357,7 +357,7 @@ The `jsonlite` package is a parser, that will tell your API how to read the data
 `fromJSON()` converts R objects to JSON language and vice-verse. 
 <br>
 
-*But in which type of data does the `fromJSON()`function transforms our request?*   
+*But in which type of data does the `fromJSON()`function transforms our request ?*   
 <br>
 
 **Simplification** is what this function does to transform the retrieved list into a more specific R data class: simplifyVector, simplifyDataFrame, simplifyMatrix 
@@ -376,6 +376,8 @@ name: Overall design of an API
 - **STEP 2**: Make a request using `GET` from the HTTR package: GET(https://api.tvmaze.com/shows)
 
 - **STEP 3**: add a specification to the URL if you want a certain information: GET(https://api.tvmaze.com/shows/1) if you want to see a specific show, use the show's id
+
+# i dont understand the difference between step 3 and 4
 
 - **STEP 4**: add a query if you want to retrieve specific data from a show: GET(https://api.tvmaze.com/singlesearch/shows?q=girls&embed=episodes)
 
@@ -399,7 +401,7 @@ name: Useful and interesting resources
 - **2**: [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
 <br>
 
-- **3**:[ProgrammableWeb: the LArgest API Directory on the web](https://www.programmableweb.com/apis/directory)
+- **3**:[ProgrammableWeb: the Largest API Directory on the web](https://www.programmableweb.com/apis/directory)
 <br>
 
 - **4**:[Github List of Free APIs by Github](https://github.com/public-apis/public-apis)
