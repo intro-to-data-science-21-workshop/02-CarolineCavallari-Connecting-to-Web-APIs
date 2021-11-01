@@ -23,7 +23,7 @@ library(dplyr)
 
 ```{r }
 # url we got from documentation, we search for breaking bad
-c
+url <- "https://api.tvmaze.com/search/shows?q=girls"
 
 # we retrieve information from this URL, using httr package
 retrieved_info <- httr::GET(url) #

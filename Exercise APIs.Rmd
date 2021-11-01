@@ -34,16 +34,8 @@ library(usethis)
 
 
 ```{r}
-
-
-tv_data <- GET("https://api.tvmaze.com/shows?page=1") %>% 
-stop_for_status() %>% 
-  content("text") %>% 
-  jsonlite::fromJSON()
-
-tv_data$
-
-
+x <- GET("https://api.tvmaze.com/shows/1")
+http_status(x)
 
 ```
 

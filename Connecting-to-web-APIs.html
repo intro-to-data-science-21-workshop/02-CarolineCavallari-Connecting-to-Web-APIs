@@ -26,8 +26,6 @@ class: center, middle, inverse, title-slide
 
 
 
-
-
 # Our agenda for today:
 
 &lt;br&gt;
@@ -50,27 +48,62 @@ name: intro
 
 #Introduction to web APIs
 
+.pull-left[
 ##What are APIs?
+
 
 API stands for 'Application Programming Interface’. 
 
-It is a contract on how computers can communicate to each other. Web APIs allow communication between: a client, your R script  and a server, which hosts a website. 
+It is a contract on how computers can communicate to each other and between: a client, your R script and a server, which hosts a website. 
 
-- Server: it is like a big computer, capable of doing different things such as: storing data or performing different tasks
+- Server: it is like a big computer, capable of storing data or performing different tasks
 - Client: companies or you, data analysts 👩‍💻 
 
-One important thing to know is that Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. Therefore, you have to understand theinformation that you need, in order to understand the level that it is in.     
+**Important**: Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. You have to understand the information that you need in order to know the level that it is in.     
+
+]
+
+.pull-right[
+![ ](./Images/Image_12.png)
+
+[Image by AltexSoft](https://www.altexsoft.com/blog/engineering/travel-and-booking-apis-for-online-travel-and-tourism-service-providers/)&lt;br&gt;
+
+]
+
 
 ---
 
-name: what APIs do?
+name: What APIs do?
 
+.pull-left[
 **What APIs do?**
 - Make it easier for a computer to interact with data on server
 - Allows access to ‘hidden’ part of website
+- They organize data and codes in a way so developers don't have to start everything from scratch
 
 
 ![ ](./Images/Image_1.jpeg)
+]
+
+
+.pull-right[
+**Example**
+&lt;br&gt;
+An easier way to explain what an API is, is to think about a restaurant.
+&lt;br&gt;
+
+When you are a client, you go to a restaurant and you have many options of food in the menu (let's say that is the API documentation).
+&lt;br&gt;
+
+The client orders the food according to the menu to the waiter, and the waiter send this request to the kitchen (the server). 
+&lt;br&gt;
+
+The waiter acts like an API sending the request and bringing back de results - hopefully good food!
+
+]
+
+
+.footnote[&lt;sup&gt;2&lt;/sup&gt; [The image was taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)&lt;br&gt; &lt;sup&gt;3&lt;/sup&gt; [STje kitchen example was taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
 
 ---
 name: What are APIs good for?
@@ -83,7 +116,7 @@ When you need data from website in a programmatic manner:
 - Data gets updated constantly (weather, price of gold) 
 
 **What are their strengths?**
-- Unlike in webscraping, there is a structured way to access data in APIs. 
+- Unlike in webscraping, there is a very structured way to access data in APIs. 
 - Data is obtained in a standardized format.
 
 **What are their disadvantages?**
@@ -95,15 +128,18 @@ When you need data from website in a programmatic manner:
 name: But, why do companies have APIs?
 
 #But, why do companies have APIs?
+&lt;br&gt;
 
 Imagine if everyone decided to retrieve data from a server in an unstructured way. The amount of energy that this would consume would be very high. Now, the company can provide an organized way for clients to retrieve a large amount of data, without overwhelming or crashing their server.
 
+&lt;br&gt;
 Moreover, APIs allows for more:
 
-- Innovation: clients have access to data, can develop their own products and solutions
-- Expansion: APIs can help companies move to different markets or even partner with other companies
-- Variety: Allows for a large amount of content to be provided in  the internet
-- For people: APIs are very important for research, people can find solutions to many different problems just by having access to structured dataframes. 
+&lt;br&gt;
+- **Innovation:** clients have access to data, can develop their own products and solutions
+- **Expansion:** APIs can help companies move to different markets or even partner with other companies
+- **Variety:** Allows for a large amount of content to be provided in  the internet
+- **For people:** APIs are very important for research, people can find solutions to many different problems just by having access to structured dataframes. 
 
 
 ---
@@ -113,12 +149,14 @@ name: Still confused on what are APIs?
 #Still confused on what are APIs?
 
 .pull-left[
-**Let me give you an example:** Many companies use APIs today to allow for their clients to retrieve data and create their own apps, softwares and solutions. 
+**Let me give you an example:** Many companies use APIs today to allow for their clients to retrieve data and create their own apps, software and solutions. 
 
 &lt;br&gt; 
 
-**Exammples:**
+**Examples:**
+
 &lt;br&gt; 
+
 &lt;img style="padding-right: 40px" src="Images/Image_3.jpeg" height=80&gt;
 &lt;img src="Images/Image_4.png" height=80&gt;
 &lt;img src="Images/Image_5.png"height=80&gt;
@@ -129,7 +167,7 @@ name: Still confused on what are APIs?
 ]
 
 .pull-right[
-**Spotify**: remember when Spotify asks to connect to your friends in Facebook? What is happening there is an API, a website (spotify) is pulling data from the other (Facebook).
+**Spotify**: remember when Spotify asks to connect to your friends in Facebook? What is happening there is an API, a website (Spotify) is pulling data from the other website (Facebook). Here, we see that these two websites are **integrated**.
 
 &lt;br&gt; 
 
@@ -146,7 +184,7 @@ name: What is  the logic of APIs?
 In order for APIs to be done, computers need a protocol. 
 *But what does that mean?*
 
-It means that a set of rules define how a computer reads a message.  This set of rules is the internet's protocol, also known as HTTP.  
+It means that a set of rules define how a computer reads a message.  This set of rules is the internet's protocol, also known as **HTTP**.  
 
 This is also known as a Request-Response Cycle: We can ask the server to do something, and the server will tell us if it can be done or not (Cooksey, 2014) 
 
@@ -208,6 +246,7 @@ name: The tructure of a HTTTP
 name: Checking for Errors
 
 .pull-left[
+
 #Checking for Errors
 
 *How do we check for errors before we continue?*
@@ -215,61 +254,107 @@ name: Checking for Errors
 When we are building APIs and retrieving the url, it's important to check whether our url is valid and whether it is working before we start retrieving data.
 
 In order to check our url we can run **http_status()**: which will tell us the status of our code and whether our operation was successful or not.
-]
 
+x &lt;- GET("https://api.tvmaze.com/shows/1")
+&lt;br&gt;
+http_status(x)
+
+
+```
+   $category
+   [1] "Success"
+   
+   $reason
+   [1] "OK"
+   
+   $message
+   [1] "Success: (200) OK"
+```
+
+]
 .pull-right[
 #Most Common Errors
 
 Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
 
 ![ ](./Images/Image_2.jpeg)
-
-- 200	OK: The request was sucessful. The client can read the result of the request 
-- 400: The request could not be understood by the server due to malformed syntax. 
-- 
-
-
-
+]
 ---
 
-name:The jsonlite package
+name:The jAsonlite package
 
-#The jsonlite package
+#The jAsonlite package
+&lt;br&gt;
+
+
 
 &lt;img src="./Images/gif_jason.gif" style="display: block; margin: auto;" /&gt;
 
 ---
 
-name: But now the real jsonlite package
+name: But now the real `jsonlite` package
 
-#But now the real jsonlite package
+#But now the real `jsonlite` package
 
-*What does this package do?*
+.pull-left[
+ **As we saw before:**
+&lt;br&gt;
+- computers communicate with one another through a protocol
+- they also need a "language" to communicate with each other
+- the most common languages used by computers are: XML and JSON (JavaScript Object Notation)
+&lt;br&gt;
 
-The `jsonlite` package is a parser, that will tell your API how to read the data being retrieved in the JSON (JavaScript Object Notation) format. `JSON()` converts R objects to JSON language and vice-versa. 
+We recommend using JSON due to its easier usability.
+The JSON language is divided in two:
+- **Keys**: they represent an attribute of an object
+- **Values**: the details of the object
 
+]
+
+.pull-right[
+**For example**:
+If our object was a cocktail, attributes could be: type of drink, type of alcohol, fruits etc.
+&lt;br&gt;
+  {"type_of_drink": "alcoholic",
+  &lt;br&gt;
+  "type_of_alcohol": ["vodka", "tequila", "gin"],
+  &lt;br&gt;
+  "status": "cold"}
+&lt;br&gt;
+
+The `jsonlite` package is a parser, that will tell your API how to read the data being retrieved in the JSONformat.
+`fromJSON()` converts R objects to JSON language and vice-verse. 
+&lt;br&gt;
+
+*But in which type of data does the `fromJSON()`function transforms our request?*   
+&lt;br&gt;
+
+**Simplification** is what this function does to transform the retrieved list into a more specific R data class: simplifyVector, simplifyDataFrame, simplifyMatrix 
+
+] 
 
 ---
 
-name: Overall design
+name: Overall design of an API
 
-#Overall design
+#A Recap: Overall design of an API
+&lt;br&gt;
+
+- **STEP 1**: Select the URL address from the API you want to do 
+ 
+- **STEP 2**: Make a request using `GET` from the HTTR package: GET(https://api.tvmaze.com/shows)
+
+- **STEP 3**: add a specification to the URL if you want a certain information: GET(https://api.tvmaze.com/shows/1) if you want to see a specific show, use the show's id
+
+- **STEP 4**: add a query if you want to retrieve specific data from a show: GET(https://api.tvmaze.com/singlesearch/shows?q=girls&amp;embed=episodes)
+
+- **STEP 5**: check whether your url is retrieving information correctly with `status(url)` 
+
+- **STEP 6**: you can also see the types of content and data you have using the function `content`: url_data$headers$`content-type` 
+
+- **STEP 7**: after checking that the language is json, translate jsonlite::fromJSON(url)
 
 
-The key features of any API are the structure of the requests and the structure of the responses. An HTTP request consists of the following parts:
-
-HTTP verb (GET, POST, DELETE, etc.)
-The base URL for the API
-The URL path or endpoint
-URL query arguments (e.g., ?foo=bar)
-Optional headers
-An optional request body
-
-example:
-- url &lt;- "https://api.tvmaze.com/search/shows?q=girls"
-- httr::GET(url)
-- Query arguments: APIs are structured in a way for you to specify information that you are looking for. In the above example, we specified q=girls -&gt; query=girls. We want to retrieve data from all tv programs that have "girls" on their name.
-- 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
