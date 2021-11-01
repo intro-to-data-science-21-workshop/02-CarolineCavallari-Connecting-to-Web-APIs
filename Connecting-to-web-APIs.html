@@ -56,11 +56,16 @@ API stands for 'Application Programming Interface’.
 &lt;br&gt;
 
 It is a contract on how computers can communicate with each other. Usually, they structure communications between: a client and the server hosting the website. 
+&lt;br&gt;
+
+- **Server**: a big computer, capable of storing data or performing different tasks
+&lt;br&gt;
+
+- **Client**: software, like a browser, or R Studio (when it makes requests to a server) 
 
 &lt;br&gt;
 
-- Server: a big computer, capable of storing data or performing different tasks
-- Client: software, like a browser, or R Studio (when it makes requests to a server) 
+&lt;img src="./Images/API_gif.gif" width="400" height="200" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -127,8 +132,7 @@ name: But, why do companies have APIs?
 Imagine if everyone decided to retrieve data from a server in an unstructured way. The amount of energy that this would consume would be very high. Now, the company can provide an organized way for clients to retrieve a large amount of data, without overwhelming or crashing their server.
 
 &lt;br&gt;
-Moreover, APIs allows for more:
-
+*Moreover, APIs allows for more*:
 &lt;br&gt;
 - **Innovation:** clients have access to data, can develop their own products and solutions
 - **Expansion:** APIs can help companies move to different markets or even partner with other companies
@@ -165,7 +169,7 @@ name: Still confused on what are APIs?
 
 &lt;br&gt; 
 
-&lt;img style="padding-right: 100px" img src="Images/Image_9.png"height=200&gt;
+&lt;img style="padding-right: 200px" img src="Images/Image_9.png"height=350&gt;
 &lt;/div&gt;
 
 ]
@@ -285,12 +289,25 @@ name:Most Common Errors
 
 #Most Common Errors
 
+.pull-left[
 Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
 &lt;br&gt;
 
+![ ](./Images/Image_2.jpeg)
+]
+
+.pull-right[
 &lt;br&gt;
 
-![ ](./Images/Image_2.jpeg)
+&lt;br&gt;
+
+
+- **200**: your API worked. You can go home now.
+- **400**: Invalid syntax for this request was provided.
+- **404**: The resource requested was not found. Tip: go back to documentation and take a look on what you want to retrieve
+- **403**: forbbiden, you don't have an authorized account for that
+- **500**: Unexpected internal server error, this might be a problem with the server (*classic: it's not you, it's me*), or you actually did something wrong with the link.
+]
 
 ---
 
@@ -309,25 +326,41 @@ name: But now the real `jsonlite` package
 
 #But now the real `jsonlite` package
 
-.pull-left[
+
  **As we saw before:**
 &lt;br&gt;
+
 - computers communicate with one another through a protocol
+&lt;br&gt;
+
 - they also need a "language" to communicate with each other
+&lt;br&gt;
+
 - the most common languages used by computers are: XML and JSON (JavaScript Object Notation)
+
 &lt;br&gt;
 
 We recommend using JSON (if the website allows for it!) due to its easier usability.
+&lt;br&gt;
+
 The JSON language is divided in two:
 - **Keys**: they represent an attribute of an object
 - **Values**: the details of the object
 
-]
 
-.pull-right[
+---
+
+name: Continuing with the real `jsonlite` package
+
+#Continuing with the real `jsonlite` package
+
+.pull-left[
 **For example**:
+&lt;br&gt;
+
 If our object was a cocktail, attributes could be: type of drink, type of alcohol, fruits etc.
 &lt;br&gt;
+
   {"type_of_drink": "alcoholic",
   &lt;br&gt;
   "type_of_alcohol": ["vodka", "tequila", "gin"],
@@ -338,13 +371,21 @@ If our object was a cocktail, attributes could be: type of drink, type of alcoho
 The `jsonlite` package is a parser, that will tell your API how to read the data being retrieved in the JSONformat.
 `fromJSON()` converts R objects to JSON language and vice-verse. 
 &lt;br&gt;
+]
 
+.pull-right[
 *But what data objects do we get when we use JSON?*   
+**Simplification** is what this function does to transform the retrieved list into a more specific R data class.
 &lt;br&gt;
+When you check the content of your data, you will see whether it is an array of primitives, an array of objects or an array of arrays. 
 
-**Simplification** is what this function does to transform the retrieved list into a more specific R data class. When you check the content of your data, you will see whether it is an array of primitives, an array of objects or an array of arrays. Depending on the type of the data, you can use simplifyVector, simplifyDataFrame, simplifyMatrix to transform it into a R specific data class.
+&lt;br&gt;
+Depending on the type of the data, you can use **simplifyVector**, **simplifyDataFrame**, **simplifyMatrix** to transform it into a R specific data class.
 
-] 
+
+![ ](./Images/Image_14.png)
+
+]
 
 ---
 
@@ -355,9 +396,9 @@ name: Overall design of an API
 
 - **STEP 1**: Select the URL address from the API you want to do 
  
-- **STEP 2**: Make a request using `GET` from the HTTR package: GET(https://api.tvmaze.com/shows)
+- **STEP 2**:  add an extension to the URL indicating what you want to retireve: GET(https://api.tvmaze.com/shows/1). The extension will tell your request exactly what do you want to see and where do you want to go (it is the tree logic we discussed in the beginning)
 
-- **STEP 3**: add an extension to the URL indicating what you want to retireve: GET(https://api.tvmaze.com/shows/1). The extension will tell your request exactly what do you want to see and where do you want to go (it is the tree logic we discussed in the beginning)
+- **STEP 3**: Make a request using `GET` from the HTTR package: GET(https://api.tvmaze.com/shows/1)
 
 - **STEP 4**: check whether your url is retrieving information correctly with `status(url)` 
 
@@ -422,7 +463,6 @@ name: References consulted for this workshop
 **We highly recommend this material**
 
 &lt;br&gt;
-
 &lt;img style="padding-right: 200px" img src="Images/Image_13.png"height=350&gt;
 &lt;/div&gt;
 ]
@@ -433,11 +473,10 @@ name: Still not sure if you can do it?
 
 #Still not sure if you can do it?
 &lt;br&gt;
+
 No worries, we will do an exercise together now!
-&lt;br&gt;
 
 &lt;br&gt;
-
 
 &lt;br&gt;
 
