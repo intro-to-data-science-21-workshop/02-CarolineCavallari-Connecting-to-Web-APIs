@@ -233,7 +233,7 @@ name: The HTTR Package
 #The HTTR Package
 `httr` connects your data to a server and organizes it according to your setups. This means that HTTR helps you to **make a request** to a server. The most frequently used functions in this package are:
 
-- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R. #perhaps more than your variables the structure of the data?#
+- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R. 
 
 - **GET():** tells the server to get the information from the url into your scripts.
 
