@@ -127,7 +127,7 @@ We get a **list** object, a quick view provides important information. Relevant 
 
   *   The **status** '200' tells us the request was successful 
   
-  *   The **content-type** tells us the data is encoded using JSON. 
+  *   The **content-type** tells us the data is JSON format. 
   
 Both are important pieces of information we will use later on. 
 
@@ -186,40 +186,43 @@ parsed_content <- retrieved_data %>%
   httr::content("text", encoding="UTF-8") %>%  # turns data into text
   jsonlite::fromJSON()  # uses JSON package to translate from JSON
 
-str(parsed_content, max=1)#inspects elements of list
+parsed_content %>% head(1) # inspects first row
 
 ```
 
 This is a **slight improvement**, but we're still not where we want to be. 
 
-We get an unwieldy object: a data frame with nested data frames inside it. To avoid this issue we can set the flatten argument of `jsonlite::fromJSON()` to TRUE. 
+We get an unwieldy object: a data frame with nested data frames inside it. To avoid this issue we can set flatten argument of `jsonlite::fromJSON()` to `TRUE` 
 
+#### Let's try once more. 
 
 ```{r}
 parsed_content <- retrieved_data %>%  
-  stop_for_status %>% # we check for errors in thr request
+  stop_for_status %>% # we check for errors in th request
   httr::content("text", encoding="UTF-8") %>%  # turns data into text
-  jsonlite::fromJSON()  # uses JSON package to translate from JSON
+  jsonlite::fromJSON(flatten = T)  # uses JSON package to translate from JSON
 
-str(parsed_content, max=1)#inspects elements of list
+parsed_content %>% head(1) # inspects first row
 
 
 ```
+
+Excellent, that's more like it. 
 
 ---
 
 ## Wrangling `r emo::ji("muscle")`
 
-Although APIs provide data in a structured format, we might have to do further cleaning ourselves. This will require exploring the data frame. 
+Although APIs provide data in a structured format, we might have to do further cleaning ourselves.  This will depend on the data frames we get, and our needs. 
 
 This is *normal*. Every API will return the data structured in a different way. Working with APIs means learning the particulars of every API you use. 
 
-Below is an example of how we could wrangle the data to get a more useful data frame, but this depends on what data we want. 
+Our data is already looking good, so we'll save the heavy wrangling for another day. 
 
 
 ```{r}
 
-parsed_content$show %>% dplyr::select(name,status) %>% head()
+parsed_content %>% dplyr::select(show.name,score) %>% head()
 
 ```
 
@@ -255,22 +258,20 @@ The code works in the following steps steps.
 url <- "https://api.tvmaze.com/shows?page=0" # page 0
 results <- GET(url) %>%  # request data
   httr::content("text", encoding="UTF-8") %>% # turn data into text
-  jsonlite::fromJSON() %>% # create data frame
-  dplyr::as_tibble() %>%  # turn into data frame
-  dplyr::select(name, runtime) # selects the columns we want
+  jsonlite::fromJSON(flatten = T) %>% # create data frame
+  dplyr::select(name, rating.average) # selects the columns we want
 
 
 pages <- c(1:4) # we specify the number of pages of results we want
 
 for (i in length(pages)) { # we iterate as many times as there pages
     url <- paste0("https://api.tvmaze.com/shows?page=",pages[i]) # page n
-    more_results <- GET(url, 
+    more_results <- GET(url, #create new df
                         httr::add_headers(From = "jose.heros5@gmail.com", # very polite
     `UserAgent` = R.Version()$version.string)) %>% 
       content("text", encoding="UTF-8") %>% 
-      jsonlite::fromJSON() %>%  # create a new df
-      dplyr::as_tibble() %>%  
-      dplyr::select(name, runtime) 
+      jsonlite::fromJSON(flatten=T) %>%  
+      dplyr::select(name, rating.average) 
     results <- rbind(results, more_results) # bind new df to existing one
     Sys.sleep(runif(1, 1, 2)) # always polite 
     }
@@ -299,27 +300,28 @@ results %>% dplyr::sample_n(5)
 
 ```{r}
 url <- "https://api.tvmaze.com/shows?page=0"
-results <- httr::GET(url) %>%  # request data
+tv_url <- GET(url, httr::add_headers(From = "jose.heros5@gmail.com", # very polite
+                                          `UserAgent` = R.Version()$version.string))
+results <- tv_url %>%  # request data
 httr::content("text", encoding="UTF-8") %>% # turn data into text
-jsonlite::fromJSON() %>% # create data frame
-dplyr::as_tibble() %>%  # turn into data frame
-dplyr::select(name, runtime)
+jsonlite::fromJSON(flatten=T) %>% 
+dplyr::select(name, rating.average)
 
 page_number <- 1
 
 #while(tv_url$status==200) {
-    #url <- paste0("https://api.tvmaze.com/shows?page=", page_number)
-  # more_results <- GET(url) %>% 
+  #url <- paste0("https://api.tvmaze.com/shows?page=", page_number)
+  #tv_url <- GET(url, httr::add_headers(From = "jose.heros5@gmail.com", # very polite
+                                          #`UserAgent` = R.Version()$version.string))
+  #more_results <- tv_url %>% 
       #content("text", encoding="UTF-8") %>% 
-      #jsonlite::fromJSON() %>%  # create a new df
-      #dplyr::as_tibble() %>%  
-      #dplyr::select(name, runtime) 
-    #results <- rbind(results, more_results)
+      #jsonlite::fromJSON(flatten=T) %>%  
+      #dplyr::select(name, rating.average) 
+    #results <- rbind(results, more_results) # bind new df to existing one
     #page_number <- page_number + 1 # every time it runs, the loop increases the page count
   #Sys.sleep(runif(1, 1, 2)) # out of politeness 
   #} 
 ```
-
 
 ---
 
@@ -327,11 +329,11 @@ page_number <- 1
 
 Every API is different. You will have to learn how to interact with each one. 
 
-Getting data might require that you think creatively about how to use the API. In other words, the data YOU want might not be served on a platter. 
+Getting data might require that you think creatively about how to use the API. In other words, even though APIs make many things easier, not all the data we need will be served on a platter. 
 
 You can find thousands of APIs at https://www.programmableweb.com and here https://github.com/public-apis/public-apis 
 
-Thank you for hanging in there! 
+**Thank you for hanging in there!** 
 
 ---
 
@@ -339,7 +341,7 @@ We are indebted to Amanda Gadrow's Tutorial on APIs.
 
 https://www.rstudio.com/resources/webinars/the-basics-and-some-of-the-pitfalls-of-calling-web-apis-from-within-r/
 
-We are also indebted to Tom Arend, Lisa Oswald, Sebastian Ramirez Ruiz and Simon Munzert, whose lab sessions helped us format this tutorial in R Markdown. The function to check for installed packages is taken verbatim from the first lab of the Causal Inference course^[Footnote].
+We are also indebted to Tom Arend, Lisa Oswald, Sebastian Ramirez Ruiz and Simon Munzert, whose lab sessions helped us format this tutorial in R Markdown. The function to check for installed packages is taken verbatim from the first lab of the Causal Inference course. 
 
 
 
