@@ -180,7 +180,7 @@ name: What is  the logic of APIs?
 
 .pull-left[
 #What is  the logic of APIs?
-In order for APIs to be done, computers need a protocol. 
+In order for APIs to work, computers need a protocol. 
 *But what does that mean?*
 
 It means that a set of rules define how a computer reads a message.  This set of rules is the Internet's protocol, also known as **HTTP**.  
@@ -196,15 +196,12 @@ This is also known as a Request-Response Cycle: We can ask the server to do some
 
 .pull-right[
 ## Making Valid Requests
-Also, according to Cooksey (2014), to make a valid request, the client needs to include four things:
+There are more parts to this. But for now, we'll simplify it to two parts. You'll need: 
 
-- **URL (Uniform Resource Locator)**: is a text "address" that specifies where a resource (webpage, video) is located on the internet
+- **URL (Uniform Resource Locator)**: is a text "address" that specifies where a resource (webpage, video) is located on the internet. Most APIs will provide documentation on how to write URLs that get us the data we want. Usually a base URL + an extension specifying what we need specifically. 
 
-- **Method**: the verbs used to talk with the server (ex: `GET()`, `DELETE()`,`POST()`)
+- **Method**: What we want to do with that URL. Usually, we want the information it contains. To get it we use the GET method. 
 
-- **List of Headers**: will describe the body included in our request
-
-- **Body**: this is the the data itself, the content we are interested in retrieving
 ]
 
 ---
