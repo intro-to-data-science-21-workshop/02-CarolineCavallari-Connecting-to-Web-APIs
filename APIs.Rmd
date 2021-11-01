@@ -192,7 +192,7 @@ str(parsed_content, max=1)#inspects elements of list
 
 This is a **slight improvement** (kind of ?), but we're still not where we want to be. 
 
-We get an unwieldy object: a data frame with nested data frames inside it.
+We get an unwieldy object: a data frame with nested data frames inside it. To avoid this issue we can set the flatten argument of `jsonlite::fromJSON()` to TRUE. 
 
 ---
 
