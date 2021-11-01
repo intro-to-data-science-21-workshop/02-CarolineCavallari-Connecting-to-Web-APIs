@@ -48,35 +48,24 @@ name: intro
 
 #Introduction to web APIs
 
-.pull-left[
+
 ##What are APIs?
 
 
 API stands for 'Application Programming Interface’. 
 
-It is a contract on how computers can communicate to each other and between: a client, your R script and a server, which hosts a website. 
+It is a contract on how computers can communicate with each other and between: a client, your R script and a server, which hosts a website. 
 
 - Server: it is like a big computer, capable of storing data or performing different tasks
-- Client: companies or you, data analysts 👩‍💻 
-
-**Important**: Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. You have to understand the information that you need in order to know the level that it is in.     
-
-]
-
-.pull-right[
-![ ](./Images/Image_12.png)
-
-[Image by AltexSoft](https://www.altexsoft.com/blog/engineering/travel-and-booking-apis-for-online-travel-and-tourism-service-providers/)&lt;br&gt;
-
-]
+- Client: a software, like a browser or R studio (when it makes requests to a server)
 
 
 ---
 
-name: What APIs do?
+name: What do APIs do?
 
 .pull-left[
-**What APIs do?**
+**What do APIs do?**
 - Make it easier for a computer to interact with data on server
 - Allows access to ‘hidden’ part of website
 - They organize data and codes in a way so developers don't have to start everything from scratch
@@ -95,7 +84,7 @@ An easier way to explain what an API is, is to think about a restaurant.
 When you are a client, you go to a restaurant and you have many options of food in the menu (let's say that is the API documentation).
 &lt;br&gt;
 
-The client orders the food according to the waiter, and the **waiter** sends this request to the **kitchen (the server)**, who will interpret the request and produce it. 
+The client orders the food from the waiter, and the **waiter** sends this request to the **kitchen (the server)**, who will interpret the request and produce it. 
 &lt;br&gt;
 
 The waiter acts like an API sending the request and bringing back de results - hopefully good food!
@@ -103,7 +92,7 @@ The waiter acts like an API sending the request and bringing back de results - h
 ]
 
 
-.footnote[&lt;sup&gt;2&lt;/sup&gt; [image taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)&lt;br&gt; &lt;sup&gt;3&lt;/sup&gt; [the kitchen example was taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
+.footnote[&lt;sup&gt;1&lt;/sup&gt; [image taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)&lt;br&gt; &lt;sup&gt;2&lt;/sup&gt; [the kitchen example was taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
 
 ---
 name: What are APIs good for?
@@ -139,7 +128,7 @@ Moreover, APIs allows for more:
 - **Innovation:** clients have access to data, can develop their own products and solutions
 - **Expansion:** APIs can help companies move to different markets or even partner with other companies
 - **Variety:** Allows for a large amount of content to be provided in  the internet
-- **For people:** APIs are very important for research, people can find solutions to many different problems just by having access to structured dataframes. 
+- **For people:** APIs are very important for research, people can find solutions to many different problems just by having access to structured data frames. 
 
 
 ---
@@ -167,7 +156,7 @@ name: Still confused on what are APIs?
 ]
 
 .pull-right[
-**Spotify**: remember when Spotify asks to connect to your friends in Facebook? What is happening there is an API, a website (Spotify) is pulling data from the other website (Facebook). Here, we see that these two websites are **integrated**.
+**Spotify**: remember when Spotify asks to connect to your friends on Facebook? What is happening there is an API, a website (Spotify) is pulling data from the other website (Facebook). Here, we see that these two websites are **integrated**.
 
 &lt;br&gt; 
 
@@ -175,6 +164,7 @@ name: Still confused on what are APIs?
 &lt;/div&gt;
 
 ]
+
 ---
 
 name: What is  the logic of APIs?
@@ -184,7 +174,7 @@ name: What is  the logic of APIs?
 In order for APIs to be done, computers need a protocol. 
 *But what does that mean?*
 
-It means that a set of rules define how a computer reads a message.  This set of rules is the internet's protocol, also known as **HTTP**.  
+It means that a set of rules define how a computer reads a message.  This set of rules is the Internet's protocol, also known as **HTTP**.  
 
 This is also known as a Request-Response Cycle: We can ask the server to do something, and the server will tell us if it can be done or not (Cooksey, 2014) 
 
@@ -215,7 +205,7 @@ name: The HTTR Package
 #The HTTR Package
 `httr` connects your data to a server and organizes it according to your setups. This means that HTTR helps you to **make a request** to a server. The most frequently used functions in this package are:
 
-- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R.
+- **HEAD():** returns the headers of your metadata but without the data itself, allowing you to understand your variables before moving everything to your R. #perhaps more than your variables the structure of the data?#
 
 - **GET():** tells the server to get the information from the url into your scripts.
 
@@ -231,7 +221,7 @@ name: The HTTR Package
 
 ---
 
-name: The tructure of a HTTTP
+name: The Structure of a HTTTP
 
 #The Structure of a HTTP
 
@@ -239,8 +229,12 @@ name: The tructure of a HTTTP
 &lt;img style="padding-right: 100px" img src="Images/Image_11.png"height=400&gt;
 &lt;/div&gt;
 
+&lt;br&gt;
 
-.footnote[&lt;sup&gt;2&lt;/sup&gt; [MDN Web Docs HHTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)
+
+.footnote[ &lt;sup&gt;3&lt;/sup&gt; [Image by MDN Web Docs HHTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)&lt;br&gt;
+
+
 
 ---
 
@@ -253,7 +247,7 @@ name: Checking for Errors
 
 *How do we check for errors before we continue?*
 
-When we are building APIs and retrieving the url, it's important to check whether our url is valid and whether it is working before we start retrieving data.
+When we are building APIs and retrieving the url, it is important to check whether our url is valid and whether it is working before we start retrieving data.
 
 In order to check our url we can run **http_status()**: which will tell us the status of our code and whether our operation was successful or not.
 
@@ -289,10 +283,9 @@ name:Most Common Errors
 Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
 &lt;br&gt;
 
-
+&lt;br&gt;
 
 ![ ](./Images/Image_2.jpeg)
-]
 ---
 
 name:The jAsonlite package
@@ -318,7 +311,7 @@ name: But now the real `jsonlite` package
 - the most common languages used by computers are: XML and JSON (JavaScript Object Notation)
 &lt;br&gt;
 
-We recommend using JSON due to its easier usability.
+We recommend using JSON (if the website allows for it!) due to its easier usability.
 The JSON language is divided in two:
 - **Keys**: they represent an attribute of an object
 - **Values**: the details of the object
@@ -340,10 +333,10 @@ The `jsonlite` package is a parser, that will tell your API how to read the data
 `fromJSON()` converts R objects to JSON language and vice-verse. 
 &lt;br&gt;
 
-*But in which type of data does the `fromJSON()`function transforms our request?*   
+*But what data objects do we get when we use JSON?*   
 &lt;br&gt;
 
-**Simplification** is what this function does to transform the retrieved list into a more specific R data class: simplifyVector, simplifyDataFrame, simplifyMatrix 
+**Simplification** is what this function does to transform the retrieved list into a more specific R data class. When you check the content of your data, you will see whether it is an array of primitives, an array of objects or an array of arrays. Depending on the type of the data, you can use simplifyVector, simplifyDataFrame, simplifyMatrix to transform it into a R specific data class.
 
 ] 
 
@@ -358,15 +351,13 @@ name: Overall design of an API
  
 - **STEP 2**: Make a request using `GET` from the HTTR package: GET(https://api.tvmaze.com/shows)
 
-- **STEP 3**: add a specification to the URL if you want a certain information: GET(https://api.tvmaze.com/shows/1) if you want to see a specific show, use the show's id
+- **STEP 3**: add an extension to the URL indicating what you want to retireve: GET(https://api.tvmaze.com/shows/1). The extension will tell your request exactly what do you want to see and where do you want to go (it is the tree logic we discussed in the beginning)
 
-- **STEP 4**: add a query if you want to retrieve specific data from a show: GET(https://api.tvmaze.com/singlesearch/shows?q=girls&amp;embed=episodes)
+- **STEP 4**: check whether your url is retrieving information correctly with `status(url)` 
 
-- **STEP 5**: check whether your url is retrieving information correctly with `status(url)` 
+- **STEP 5**: you can also see the types of content and data you have using the function `content`: url_data$headers$`content-type` 
 
-- **STEP 6**: you can also see the types of content and data you have using the function `content`: url_data$headers$`content-type` 
-
-- **STEP 7**: after checking that the language is json, translate jsonlite::fromJSON(url)
+- **STEP 6**: after checking that the language is json, translate jsonlite::fromJSON(url)
 
 
 ---
@@ -376,25 +367,25 @@ name: Useful and interesting resources
 #Useful and interesting resources
 &lt;br&gt;
 
-- **1**: [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
+- **1**:  [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
 &lt;br&gt;
 
-- **2**: [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
+- **2**:  [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
 &lt;br&gt;
 
-- **3**:[ProgrammableWeb: the LArgest API Directory on the web](https://www.programmableweb.com/apis/directory)
+- **3**:[ProgrammableWeb: the Largest API Directory on the web](https://www.programmableweb.com/apis/directory)
+
+
+- **4**:  [Github List of Free APIs by Github](https://github.com/public-apis/public-apis)
 &lt;br&gt;
 
-- **4**:[Github List of Free APIs by Github](https://github.com/public-apis/public-apis)
-&lt;br&gt;
-
-- **5**:[Hands on intro to APIs in R by Leo Glowacki](https://www.youtube.com/watch?v=kZU240u9H3E&amp;t=2248s&amp;ab_channel=BigData%26AnalyticsAssociation)
+- **5**:  [Hands on intro to APIs in R by Leo Glowacki](https://www.youtube.com/watch?v=kZU240u9H3E&amp;t=2248s&amp;ab_channel=BigData%26AnalyticsAssociation)
 
 ---
 
-name: Sources consulted for this workshop
+name: References consulted for this workshop
 
-#Sources consulted for this workshop
+#References consulted for this workshop
 &lt;br&gt;
 
 .pull-left[
@@ -404,11 +395,20 @@ name: Sources consulted for this workshop
 - [The package 'httr' by Hadley Wickham](https://cran.r-project.org/web/packages/httr/httr.pdf)
 &lt;br&gt;
 
+- [Best practices for API packages](https://httr.r-lib.org/articles/api-packages.html)
+
 - [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
 &lt;br&gt;
 
 - [Web API updates for R by RStudio](https://www.youtube.com/watch?v=MAZic778uOw&amp;ab_channel=RStudio)
 &lt;br&gt;
+
+- [Getting started with httr](https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html)
+&lt;br&gt;
+
+-  [TV Maze Database](https://www.tvmaze.com/api#show-index)
+
+-  [For design: Inspired by Simon Munzert GitHub presentations](https://github.com/intro-to-data-science-21/lectures/tree/main/03-tidyverse)
 
 ]
 
@@ -420,6 +420,7 @@ name: Sources consulted for this workshop
 &lt;img style="padding-right: 200px" img src="Images/Image_13.png"height=350&gt;
 &lt;/div&gt;
 ]
+
 ---
 
 name: Still not sure if you can do it?
@@ -436,6 +437,8 @@ No worries, we will do an exercise together now!
 
 
 &lt;img src="./Images/yoda3.gif" style="display: block; margin: auto;" /&gt;
+
+
 
 
 

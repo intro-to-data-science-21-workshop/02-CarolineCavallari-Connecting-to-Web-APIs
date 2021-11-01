@@ -50,17 +50,17 @@ library(httr)
 
 <br>
 
-1. Definition of web APIs
+1. Definition of Web APIs
 
-2. How web APIs work and why are they important
+2. How Web APIs Work and Why are They Important
 
-4. Introduction to HTTR package
+4. Introduction to HTTR Package
 
-5. Introduction to jsonlite package
+5. Introduction to jsonlite Package
 
-6. More resources
+6. More Resources
 
-7. Do it yourself time!
+7. Do it Yourself Time!
 
 ---
 
