@@ -41,4 +41,4 @@ The material in this repository is made available under the [MIT](http://opensou
 
 **Caroline Cavallari** prepared the lecture RMarkdown script and file as well as its recording. Also helped to think about the exercise and try different options.
 
-**Jose de Los Heros** prepared the exercise for the class and also helped to do lecture materials in RMarkdown.
+**Jose de Los Heros** prepared the exercise for the class and also helped to do the lecture materials in RMarkdown and the script for thelecture.
