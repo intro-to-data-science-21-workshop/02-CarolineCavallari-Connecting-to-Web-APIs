@@ -115,7 +115,7 @@ An easier way to explain what an API is, is to think about a restaurant.
 When you are a client, you go to a restaurant and you have many options of food in the menu (let's say that is the API documentation).
 <br>
 
-The client orders the food according to the menu to the waiter, and the waiter send this request to the kitchen (the server). 
+The client orders the food according to the waiter, and the **waiter** sends this request to the **kitchen (the server)**, who will interpret the request and produce it. 
 <br>
 
 The waiter acts like an API sending the request and bringing back de results - hopefully good food!
@@ -123,7 +123,7 @@ The waiter acts like an API sending the request and bringing back de results - h
 ]
 
 
-.footnote[<sup>2</sup> [The image was taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)<br> <sup>3</sup> [STje kitchen example was taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
+.footnote[<sup>2</sup> [image taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)<br> <sup>3</sup> [the kitchen example was taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
 
 ---
 name: What are APIs good for?
@@ -260,6 +260,8 @@ name: The tructure of a HTTTP
 </div>
 
 
+.footnote[<sup>2</sup> [MDN Web Docs HHTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)
+
 ---
 
 
@@ -280,15 +282,29 @@ x <- GET("https://api.tvmaze.com/shows/1")
 http_status(x)
 
 ```{r}
-x <- GET("https://api.tvmaze.com/shows/1")
+x <- GET("https://api.tvmaze.com/shows/pel")
 http_status(x)
 ```
 
 ]
 .pull-right[
+<br>
+```{r}
+knitr::include_graphics("./Images/image_14.gif")
+```
+
+]
+
+---
+
+name:Most Common Errors
+
 #Most Common Errors
 
 Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
+<br>
+
+
 
 ![ ](./Images/Image_2.jpeg)
 ]
@@ -368,5 +384,77 @@ name: Overall design of an API
 - **STEP 6**: you can also see the types of content and data you have using the function `content`: url_data$headers$`content-type` 
 
 - **STEP 7**: after checking that the language is json, translate jsonlite::fromJSON(url)
+
+
+---
+
+name: Useful and interesting resources
+
+#Useful and interesting resources
+<br>
+
+- **1**: [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
+<br>
+
+- **2**: [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
+<br>
+
+- **3**:[ProgrammableWeb: the LArgest API Directory on the web](https://www.programmableweb.com/apis/directory)
+<br>
+
+- **4**:[Github List of Free APIs by Github](https://github.com/public-apis/public-apis)
+<br>
+
+- **5**:[Hands on intro to APIs in R by Leo Glowacki](https://www.youtube.com/watch?v=kZU240u9H3E&t=2248s&ab_channel=BigData%26AnalyticsAssociation)
+
+---
+
+name: Sources consulted for this workshop
+
+#Sources consulted for this workshop
+<br>
+
+.pull-left[
+- [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
+<br>
+
+- [The package 'httr' by Hadley Wickham](https://cran.r-project.org/web/packages/httr/httr.pdf)
+<br>
+
+- [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
+<br>
+
+- [Web API updates for R by RStudio](https://www.youtube.com/watch?v=MAZic778uOw&ab_channel=RStudio)
+<br>
+
+]
+
+.pull-right[
+**We highly recommend this material**
+
+<br>
+
+<img style="padding-right: 200px" img src="Images/Image_13.png"height=350>
+</div>
+]
+---
+
+name: Still not sure if you can do it?
+
+#Still not sure if you can do it?
+<br>
+No worries, we will do an exercise together now!
+<br>
+
+<br>
+
+
+<br>
+
+
+```{r}
+knitr::include_graphics("./Images/yoda3.gif")
+```
+
 
 

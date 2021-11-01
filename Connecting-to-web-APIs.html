@@ -57,7 +57,7 @@ API stands for 'Application Programming Interface’.
 It is a contract on how computers can communicate to each other and between: a client, your R script and a server, which hosts a website. 
 
 - Server: it is like a big computer, capable of storing data or performing different tasks
-- Client: companies or you, data analysts 👩‍💻 
+- Client: companies or you, data analysts 👨‍💻 
 
 **Important**: Web APIs are often organized hierarchically, as in a family tree-map format, containing different levels of information that can be accessed by the client. You have to understand the information that you need in order to know the level that it is in.     
 
@@ -262,20 +262,32 @@ http_status(x)
 
 ```
    $category
-   [1] "Success"
+   [1] "Client error"
    
    $reason
-   [1] "OK"
+   [1] "Not Found"
    
    $message
-   [1] "Success: (200) OK"
+   [1] "Client error: (404) Not Found"
 ```
 
 ]
 .pull-right[
+&lt;br&gt;
+&lt;img src="./Images/image_14.gif" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+name:Most Common Errors
+
 #Most Common Errors
 
 Most APIs documents in websites and platforms will tell you how their error code works, but here is an example of the most common:
+&lt;br&gt;
+
+
 
 ![ ](./Images/Image_2.jpeg)
 ]
@@ -353,6 +365,76 @@ name: Overall design of an API
 - **STEP 6**: you can also see the types of content and data you have using the function `content`: url_data$headers$`content-type` 
 
 - **STEP 7**: after checking that the language is json, translate jsonlite::fromJSON(url)
+
+
+---
+
+name: Useful and interesting resources
+
+#Useful and interesting resources
+&lt;br&gt;
+
+- **1**: [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
+&lt;br&gt;
+
+- **2**: [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
+&lt;br&gt;
+
+- **3**:[ProgrammableWeb: the LArgest API Directory on the web](https://www.programmableweb.com/apis/directory)
+&lt;br&gt;
+
+- **4**:[Github List of Free APIs by Github](https://github.com/public-apis/public-apis)
+&lt;br&gt;
+
+- **5**:[Hands on intro to APIs in R by Leo Glowacki](https://www.youtube.com/watch?v=kZU240u9H3E&amp;t=2248s&amp;ab_channel=BigData%26AnalyticsAssociation)
+
+---
+
+name: Sources consulted for this workshop
+
+#Sources consulted for this workshop
+&lt;br&gt;
+
+.pull-left[
+- [An introduction to APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)
+&lt;br&gt;
+
+- [The package 'httr' by Hadley Wickham](https://cran.r-project.org/web/packages/httr/httr.pdf)
+&lt;br&gt;
+
+- [Pratical explanation on APIs by Grant R. McDermott-University of Oregon](https://raw.githack.com/uo-ec607/lectures/master/07-web-apis/07-web-apis.html)
+&lt;br&gt;
+
+- [Web API updates for R by RStudio](https://www.youtube.com/watch?v=MAZic778uOw&amp;ab_channel=RStudio)
+&lt;br&gt;
+
+]
+
+.pull-right[
+**We highly recommend this material**
+
+&lt;br&gt;
+
+&lt;img style="padding-right: 200px" img src="Images/Image_13.png"height=350&gt;
+&lt;/div&gt;
+]
+---
+
+name: Still not sure if you can do it?
+
+#Still not sure if you can do it?
+&lt;br&gt;
+No worries, we will do an exercise together now!
+&lt;br&gt;
+
+&lt;br&gt;
+
+
+&lt;br&gt;
+
+
+&lt;img src="./Images/yoda3.gif" style="display: block; margin: auto;" /&gt;
+
 
 
     </textarea>
