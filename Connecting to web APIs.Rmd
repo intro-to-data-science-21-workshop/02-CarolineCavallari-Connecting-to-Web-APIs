@@ -52,7 +52,7 @@ library(httr)
 
 1. Definition of Web APIs
 
-2. How Web APIs Work and Why are They Important
+2. How Web APIs Work and Why They Are Important
 
 4. Introduction to HTTR Package
 
@@ -75,12 +75,14 @@ name:Introduction to web APIs
 API stands for 'Application Programming Interface’. 
 <br>
 
-It is a contract on how computers can communicate with each other and between: a client, your R script and a server, which hosts a website. 
+It is a contract on how computers can communicate with each other. Usually, they structure communications between: a client and the server hosting the website. 
 
 <br>
 
-- Server: it is like a big computer, capable of storing data or performing different tasks
-- Client: a software, like a browser or R studio (when it makes requests to a server)
+- **Server**: a big computer, capable of storing data or performing different tasks
+<br>
+
+- **Client**: software, like a browser, or R Studio (when it makes requests to a server) 
 
 
 ---
@@ -91,8 +93,9 @@ name: What do APIs do?
 .pull-left[
 
 - Make it easier for a computer to interact with data on server
-- Allows access to ‘hidden’ part of website
+- Allows access to ‘hidden’ part of website (which contains data in computer-readable format)
 - They organize data and codes in a way so developers don't have to start everything from scratch
+- You can often see how the data is organized in the API's documentation. 
 
 
 ![ ](./Images/Image_1.jpeg)
@@ -105,18 +108,18 @@ name: What do APIs do?
 An easier way to explain what an API is, is to think about a restaurant.
 <br>
 
-When you are a client, you go to a restaurant and you have many options of food in the menu (let's say that is the API documentation).
+When you are a client, you go to a restaurant, and you have many options of food in the menu (which tells you what you can ask for, kind of like an API's documentation).
 <br>
 
 The client orders the food from the waiter, and the **waiter** sends this request to the **kitchen (the server)**, who will interpret the request and produce it. 
 <br>
 
-The waiter acts like an API sending the request and bringing back de results - hopefully good food!
+The waiter acts like an API sending the request and bringing back the results - hopefully good data, I mean food!
 
 ]
 
 
-.footnote[<sup>1</sup> [image taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)<br> <sup>2</sup> [the kitchen example was taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
+.footnote[<sup>1</sup> [Image taken from Brian Cooksey explanation on APIs](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/)<br> <sup>2</sup> [Kitchen example taken from Shana Pearlman "What are APIs and how do APIS work? ](https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-are-apis-how-do-apis-work/)]
 
 ---
 name: What are APIs good for?
@@ -256,7 +259,7 @@ name: The Structure of a HTTTP
 <br>
 
 
-ˆ [<sup>3</sup> Image by MDN Web Docs HHTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)<br>
+[<sup>3</sup> Image by MDN Web Docs HHTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)<br>
 
 
 

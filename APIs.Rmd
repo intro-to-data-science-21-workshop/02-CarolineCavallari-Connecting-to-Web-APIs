@@ -83,7 +83,7 @@ Visit TV Maze's documentation to learn how to ask for data https://www.tvmaze.co
 
 From the **TV Maze documentation**, we learn that: 
 
-*   If we want to search for a **show**, we would add <span style="color:#0000FF;">/search/show?q=:query?</span>
+*   If we want to search for a **show**, we would add <span style="color:#0000FF;">/search/show?q=:query</span>
 
 *   If we want to search for a **person**, we would add <span style="color:#0000FF;">/search/person?q=:query</span>
 
@@ -190,9 +190,21 @@ str(parsed_content, max=1)#inspects elements of list
 
 ```
 
-This is a **slight improvement** (kind of ?), but we're still not where we want to be. 
+This is a **slight improvement**, but we're still not where we want to be. 
 
 We get an unwieldy object: a data frame with nested data frames inside it. To avoid this issue we can set the flatten argument of `jsonlite::fromJSON()` to TRUE. 
+
+
+```{r}
+parsed_content <- retrieved_data %>%  
+  stop_for_status %>% # we check for errors in thr request
+  httr::content("text", encoding="UTF-8") %>%  # turns data into text
+  jsonlite::fromJSON()  # uses JSON package to translate from JSON
+
+str(parsed_content, max=1)#inspects elements of list
+
+
+```
 
 ---
 
@@ -327,4 +339,7 @@ We are indebted to Amanda Gadrow's Tutorial on APIs.
 
 https://www.rstudio.com/resources/webinars/the-basics-and-some-of-the-pitfalls-of-calling-web-apis-from-within-r/
 
-We are also indebted to Tom Arend, Lisa Oswald, Sebastian Ramirez Ruiz and Simon Munzert, whose lab sessions helped us format this tutorial in R Markdown. The function to check for installed packages is taken verbatim from the first lab of the Causal Inference course. 
+We are also indebted to Tom Arend, Lisa Oswald, Sebastian Ramirez Ruiz and Simon Munzert, whose lab sessions helped us format this tutorial in R Markdown. The function to check for installed packages is taken verbatim from the first lab of the Causal Inference course^[Footnote].
+
+
+
