@@ -264,7 +264,7 @@ results <- GET(url) %>%  # request data
 
 pages <- c(1:4) # we specify the number of pages of results we want
 
-for (i in length(pages)) { # we iterate as many times as there pages
+for (i in 1:length(pages)) { # we iterate as many times as there pages
     url <- paste0("https://api.tvmaze.com/shows?page=",pages[i]) # page n
     more_results <- GET(url, #create new df
                         httr::add_headers(From = "jose.heros5@gmail.com", # very polite
